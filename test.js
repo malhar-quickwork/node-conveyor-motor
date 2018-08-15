@@ -7,7 +7,7 @@ var intervalSetting = setInterval(() => {
 
   dutyCycle += 100;
   if (dutyCycle > 255) {
-    intervalSetting.clearInterval();
+    clearInterval(intervalSetting);
   }
 }, 500);
 
