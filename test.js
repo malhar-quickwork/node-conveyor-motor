@@ -9,7 +9,7 @@ while(true){
 	dutyCycle = dutyCycle + i;
 	console.log("DUTY CYCLE" + dutyCycle);
 	if(dutyCycle < 255){
-	    led.pwmWrite(0);
+	    dutyCycle = 0;
 	}
 
     led.pwmWrite(dutyCycle);
