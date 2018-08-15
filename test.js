@@ -3,16 +3,16 @@ const led = new Gpio(25, {mode: Gpio.OUTPUT});
 let dutyCycle = 0;
 
 setInterval(() => {
-  led.pwmWrite(255);
+  led.pwmWrite(dutyCycle);
 
   dutyCycle += 25;
   if (dutyCycle > 255) {
     dutyCycle = 0;
   }
-}, 200);
+}, 900);
 
 process.on('SIGINT', function() {
-	motorOut.digitalWrite(0);
+	led.digitalWrite(0);
 	Gpio.terminate();
 	console.log('Closing');
 });
