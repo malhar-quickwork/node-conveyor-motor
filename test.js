@@ -3,7 +3,7 @@ const led = new Gpio(25, {mode: Gpio.OUTPUT});
 let dutyCycle = 0;
 
 setInterval(() => {
-  led.pwmWrite(dutyCycle);
+  led.pwmWrite(255);
 
   dutyCycle += 25;
   if (dutyCycle > 255) {
