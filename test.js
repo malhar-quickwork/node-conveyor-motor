@@ -5,8 +5,14 @@ let dutyCycle = 0;
 setInterval(() => {
   led.pwmWrite(dutyCycle);
 
-  dutyCycle += 5;
+  dutyCycle += 25;
   if (dutyCycle > 255) {
     dutyCycle = 0;
   }
-}, 20);
+}, 200);
+
+process.on('SIGINT', function() {
+	motorOut.digitalWrite(0);
+	Gpio.terminate();
+	console.log('Closing');
+});
