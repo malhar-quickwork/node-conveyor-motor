@@ -1,4 +1,4 @@
-var Gpio = require('pigpio').Gpio,
+var Gpio = require('pigpio').Gpio;
 const led = new Gpio(25, {mode: Gpio.OUTPUT});
 let dutyCycle = 50;
 
