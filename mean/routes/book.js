@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var mongoose = require('mongoose');
 var Book = require('../models/Book.js');
 var http = require('http');
 var Gpio = require('pigpio').Gpio,
