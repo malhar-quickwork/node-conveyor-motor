@@ -5,8 +5,3 @@ console.log("Speed Passed:" + dutyCycle);
 if(dutyCycle < 255){
     led.pwmWrite(dutyCycle);
 }
-process.on('SIGINT', function() {
-	led.digitalWrite(0);
-	Gpio.terminate();
-	console.log('Closing');
-});
