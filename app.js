@@ -1,6 +1,6 @@
 var http = require('http');
 var Gpio = require('pigpio').Gpio,
-motorOut = new Gpio(25, {mode: Gpio.OUTPUT});
+motorOut = new Gpio(13, {mode: Gpio.OUTPUT});
 console.log(motorOut.getPwmRealRange());
 console.log(motorOut.getPwmRange());
 runMotor();
