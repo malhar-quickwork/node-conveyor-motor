@@ -10,10 +10,16 @@ function runMotor() {
 function stopMotor() {
     motorOut.digitalWrite(0);
 }
+var controlSignal = 0;
 function slower() {
 	stopMotor();
 	console.log('Sloweeer');
-	motorOut.pwmWrite(30);
+	motorOut.pwmWrite(controlSignal);
+	controlSignal = controlSignal + 50;
+	if(controlSignal >= 255){
+		controlSignal = 0;
+	}
+	setTimeout(slower,5000);
 }
 setTimeout(slower,5000);
 process.on('SIGINT', function() {
