@@ -9,4 +9,4 @@ setInterval(() => {
   if (dutyCycle > 255) {
     dutyCycle = 0;
   }
-}, 2000);
+}, 20);
