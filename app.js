@@ -24,6 +24,5 @@ function slower() {
 setTimeout(slower,5000);
 process.on('SIGINT', function() {
 	motorOut.digitalWrite(0);
-	Gpio.terminate();
 	console.log('Closing');
 });
