@@ -14,7 +14,6 @@ function slower() {
 	stopMotor();
 	console.log('Sloweeer');
 	motorOut.pwmWrite(30);
-	motorOut.pwmFrequency(300);
 }
 setTimeout(slower,5000);
 process.on('SIGINT', function() {
