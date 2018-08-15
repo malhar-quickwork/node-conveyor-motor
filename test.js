@@ -2,12 +2,12 @@ var Gpio = require('pigpio').Gpio;
 const led = new Gpio(25, {mode: Gpio.OUTPUT});
 let dutyCycle = 50;
 
-setInterval(() => {
+var intervalSetting = setInterval(() => {
   led.pwmWrite(dutyCycle);
 
   dutyCycle += 100;
   if (dutyCycle > 255) {
-    dutyCycle = 50;
+    intervalSetting.clearInterval();
   }
 }, 500);
 
