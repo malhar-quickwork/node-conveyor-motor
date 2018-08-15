@@ -1,15 +1,15 @@
 var Gpio = require('pigpio').Gpio,
 const led = new Gpio(25, {mode: Gpio.OUTPUT});
-let dutyCycle = 0;
+let dutyCycle = 50;
 
 setInterval(() => {
   led.pwmWrite(dutyCycle);
 
-  dutyCycle += 25;
+  dutyCycle += 50;
   if (dutyCycle > 255) {
-    dutyCycle = 0;
+    dutyCycle = 50;
   }
-}, 900);
+}, 500);
 
 process.on('SIGINT', function() {
 	led.digitalWrite(0);
