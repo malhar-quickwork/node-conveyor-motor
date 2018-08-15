@@ -1,6 +1,8 @@
 var http = require('http');
 var Gpio = require('pigpio').Gpio,
 motorOut = new Gpio(25, {mode: Gpio.OUTPUT});
+console.log(motorOut.getPwmRealRange());
+console.log(motorOut.getPwmRange());
 runMotor();
 function runMotor() {
     motorOut.digitalWrite(1);
@@ -8,4 +10,15 @@ function runMotor() {
 function stopMotor() {
     motorOut.digitalWrite(0);
 }
-setTimeout(stopMotor,10000);
+function slower() {
+	stopMotor();
+	console.log('Sloweeer');
+	motorOut.pwmWrite(30);
+	motorOut.pwmFrequency(300);
+}
+setTimeout(slower,5000);
+process.on('SIGINT', function() {
+	motorOut.digitalWrite(0);
+	Gpio.terminate();
+	console.log('Closing');
+});
