@@ -7,7 +7,7 @@ let self ={
     auto : false,
     address : config.motorAddress ,
     motors : [13,12,17],
-    motorsArr : [motor13,motor12,motor17,motor18],
+    motorsArr : [motor13,motor12,motor18],
     settings :{ kickUpTick : 0 , kickDownTickMin : 40 , kickDownTickMax : 600 },
     wire : null,
     init : (next)=>{ 
