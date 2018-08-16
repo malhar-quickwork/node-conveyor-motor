@@ -17,7 +17,7 @@ let self ={
 
     },
     throttle:(selected,speed,next)=>{
-        motor13.pwmWrite(245);
+        motor13.pwmWrite(speed);
     },
     multiThrottle:(selected,speeds,next)=>{
 
