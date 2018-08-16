@@ -146,7 +146,7 @@ app.controller('MotorControlCtrl',function($scope){
                 socket.emit('speed-motor', {payload:{motorNumber : 1, value : $scope.globalValue},message:'speed change'});
                 socket.emit('speed-motor', {payload:{motorNumber : 2, value : $scope.globalValue},message:'speed change'});
                 socket.emit('speed-motor', {payload:{motorNumber : 3, value : $scope.globalValue},message:'speed change'});
-                socket.emit('speed-motor', {payload:{motorNumber : 4, value : $scope.globalValue},message:'speed change'});
+                //socket.emit('speed-motor', {payload:{motorNumber : 4, value : $scope.globalValue},message:'speed change'});
             }
             $scope.globalIncrementer = function(){
                 $scope.dummyDeltaValue = parseInt($scope.deltaValue);

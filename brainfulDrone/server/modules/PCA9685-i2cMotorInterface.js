@@ -25,7 +25,7 @@ let self ={
     },
     haltAll:(next)=>{
 
-        for(let i = 0 ; i < self.motors.length; i++){
+        for(let i = 0 ; i < self.motorsArr.length; i++){
             self.motorsArr[i].write(30);
         }
 
@@ -33,7 +33,6 @@ let self ={
     throttle:(selected,speed,next)=>{
 		if(speed < 130){
             console.log('Speed On GPIO' + self.motors[selected-1] + ' : ',speed);
-            console.log(self.motorsArr);
 		    self.motorsArr[selected-1].write(speed);
 		    console.log('Speed On GPIO' + self.motors[selected-1] + ' : ',speed);
 	    }
