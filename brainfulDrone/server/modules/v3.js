@@ -1,7 +1,5 @@
 let motor = null;
-let gyro = null;
 let ir = require('./../../proximity_sensor/ir-prox2')
-let cameraTroubleShoot = null;
 let i=0;
 let maxThrottleAllowed = 580; 
 let config = require('./config');
@@ -31,11 +29,9 @@ let ir_dummy = {
 
 module.exports =  {
     
-    setReferences: (socketIo,m,g,cameraTroubleShootFunction)=>{
+    setReferences: (socketIo,m)=>{
         io = socketIo;
         motor = m ;
-        gyro = g ;
-        cameraTroubleShoot = cameraTroubleShootFunction;
         ir.open((value)=>{
             //console.log('ir value ',value);
             io.sockets.emit('ir-status',value);
@@ -70,44 +66,6 @@ module.exports =  {
 
                 });
             });
-        });
-
-        client.on('troubleshoot-camera', function(cb){
-            cameraTroubleShoot();
-            if(cb)cb();
-        });
-
-        client.on('troubleshoot-gyro', function(cb){
-            gyro.reboot();
-            if(cb)cb();
-        });
-
-        client.on('get-video-stream',function(cb){
-            if(cb)
-            cb(config.camStreamSrc);
-        });
-
-        client.on('start-gyro-stream',function(){
-            console.log('starting gyro stream');
-            if(!client.hasGyroStream){
-                setInterval(()=>{
-                    client.emit('gyro-stream-in',gyro.currentReadings);
-                },config.gyroStreaminterval);
-                client.hasGyroStream = true ;
-            }
-        });
-        
-        client.on('start-thermo-stream',function(){
-            console.log('starting thermo stream');
-            // gyro.subscribe(function(readings){
-            //    client.emit('gyro-stream-in',readings)
-            // });
-            if(!client.hasThermoStream){
-                setInterval(()=>{
-                    client.emit('thermo-stream-in',gyro.currentThermo);
-                },(config.gyroStreaminterval*2));
-                client.hasThermoStream = true ;
-            }
         });
 
         
