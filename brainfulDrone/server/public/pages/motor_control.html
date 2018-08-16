@@ -1,0 +1,310 @@
+<style>
+
+html,
+body {
+  min-height: 100%;
+  width: 100%;
+  font-family: 'Montserrat', sans-serif;
+  background-color: #fafafa;
+}
+
+canvas 
+{ 
+  width: 100%; 
+  height: 100% ;
+
+}
+
+#qautInfo
+{
+  position:fixed;
+  bottom:0px;
+  right:0px;
+}
+
+.debug {
+  outline: 1px dashed gray;
+}
+
+
+.element-container {
+  background-color: white;
+  padding: 24px;
+  margin: 10px;
+}
+
+.md-num-picker{
+  width:auto;
+}
+
+.md-num-picker__content {
+  padding: 0;
+  height: 40px;
+  overflow: hidden;
+  position:relative;
+}
+
+.md-num-picker__content-view {
+  text-align: center;
+  position: absolute;
+  width: 100%;
+}
+
+.md-num-picker__content-view.ng-enter, 
+.md-num-picker__content-view.ng-leave {
+  transition: .5s linear all;
+}
+.md-num-picker__content-view.ng-enter {
+  top:-100%;
+}
+.md-num-picker__content-view.ng-enter-active {
+  top:0px;
+}
+.md-num-picker__content-view.ng-leave {
+  top:0px;
+}
+.md-num-picker__content-view.ng-leave-active {
+  top:100%;
+}
+
+.animate-up .md-num-picker__content-view.ng-enter {
+  top:100%;
+}
+.animate-up .md-num-picker__content-view.ng-enter-active {
+  top:0px;
+}
+.animate-up .md-num-picker__content-view.ng-leave {
+  top:0px;
+}
+.animate-up .md-num-picker__content-view.ng-leave-active {
+  top:-100%;
+}
+#mainVid{
+    height: auto;
+    width: 400px;
+    border: 7px gray solid;
+    border-radius: 5px;
+}
+</style>
+
+
+         <div class="row">
+            <div class="container">
+              <h2>Configuration Panel</h2>
+              <hr/>
+
+              
+
+            </div>         
+         </div>
+          <div class="row">
+              <div class="col-lg-3" >
+                  <h4>Live Mission Video</h4>
+                  <div id="missionVideoPanel"> 
+                  </div>   
+                  <div style="margin-top: 10px;">
+                    <h4 align="center">Temparature Gauge</h4>
+                    <canvas id="foo" height="150px" width="300px"></canvas>
+                    <b>{{currTemp.celsius}} &#8451;</b>
+
+                  </div>    
+                  <div style="margin-top: 10px;">         
+                      <div ng-if="proximity == 'true'">     
+                        <p style="font-size: 20px; color:red;"><b>Danger: Obstacle Detected! </b></p>
+                      </div>
+                      <div ng-if="proximity == 'false'">     
+                       <p style="font-size: 20px; color:green;"><b>All Clear.</b></p>
+                      </div>                      
+                  </div>
+              </div>       
+              <div class="col-lg-6">
+                  <h4> Gyro</h4>
+                  
+                  alpha: <b><span id="alpha"></span></b>
+                  beta:  <b><span id="beta"></span></b>
+                  gamma: <b><span id="gamma"></span></b>
+                  <br/>
+                  user X: <span id="userX"></span>
+                  user Y: <span id="userY"></span>
+                  <canvas id="myCanvas" height="auto" width="100%"></canvas>
+              </div>    
+              <div class="col-lg-2">
+                <div class="row">
+                      <div class="form-group" style="width: 100%;"> 
+                        <label for="sel1">Choose delta:</label>
+                        <select class="form-control" ng-model="deltaValue">
+                          <option value="1" ng-selected="true">1</option>
+                          <option value="5">5</option>
+                          <option value="10">10</option>
+                          <option value="15">15</option>
+                          <option value="20">20</option>
+                          <option value="25">25</option>
+                          <option value="30">30</option>
+                        </select>
+                      </div>                    
+                </div>
+                <div class="row">
+                      <div class="form-group" style="width: 100%;">
+                        <label for="sel1">Global Change:</label>
+                        <input class="form-control" type="text" placeholder="Enter value between 37 - 255" ng-model="globalValue">
+                        <button type="button" class="btn btn-success" style="width: 100%; margin-top: 5px;" ng-click="globalValueApply()">Apply</button>
+                      </div>                    
+                </div>
+                <div class="row">
+                    <div>
+                       <label>Global Controlls</label>
+                    </div>
+                    <div style="width: 100%;"> 
+                      <div style="float:left;"><button type="button" class="btn btn-success" ng-click="globalIncrementer()" style="height: 90px;width: 90px;"> + </button></div>
+                      <div style="float:right;"><button type="button" class="btn btn-danger" ng-click="globalDecrementer()" style="height: 90px;width: 90px;"> - </button></div>
+                    </div>                    
+                </div>
+                <div class="row">
+                   <button type="button" class="btn btn-danger" ng-click="stop()" style="margin-top: 20%;width: 100%;">Shutdown all motors! </button>            
+                </div>
+                <div class="row" style="margin-top: 20px;">
+                    <button type="button" class="btn btn-info" ng-click="camt()" style="width: 100%;">Troubleshoot Camera </button>            
+                    <button type="button" class="btn btn-info" ng-click="gt()" style="width: 100%;margin-top: 5px;">Troubleshoot Gyro </button>            
+                    <button type="button" class="btn btn-success" ng-click="stabilityOn()" style="width: 100%;margin-top: 5px;">Auto Stability On</button>
+                    <button type="button" class="btn btn-success" ng-click="stabilityOff()" style="width: 100%;margin-top: 5px;">Auto Stability Off</button>            
+
+                </div>
+              </div>                
+          </div>         
+         <hr/>
+         <div align="center"><h4>Mission Control</h4></div>
+         <hr/>
+         <div class="row" align="center">
+          <div class="col-lg-6">
+            <h5><b>Sqaure Path</b></h5>
+            <div style="width: 30%;">
+              <div class="form-group" style="width: 100%;"> 
+                <label for="sel1">Duration</label>
+                <select class="form-control" ng-model="sqaureDuration" ng-init="sqaureDuration = 12000">
+                  <option value="12000" ng-selected="true">12</option>
+                  <option value="20000">20</option>
+                  <option value="40000">40</option>
+                </select>
+              </div>       
+            </div>
+             <div style="width: 30%;">
+              <div class="form-group" style="width: 100%;"> 
+                <label for="sel1">Side</label>
+                <select class="form-control" ng-model="sqaureSide" ng-init="sqaureSide = 5">
+                  <option value="5" ng-selected="true">5 m</option>
+                  <option value="40">40 m</option>
+                </select>
+              </div>        
+            </div>            
+            <a ng-click="selectmission('SQUARE')"><input type="image" id="myimage" src="../images/square-dashed.png" style="width: 150px;height: 150px;" /></a>
+            
+
+          </div>
+          <div class="col-lg-6">
+            <h5><b>Circle Path</b></h5>
+            <div style="width: 30%;">
+              <div class="form-group" style="width: 100%;"> 
+                <label for="sel1">Duration</label>
+                <select class="form-control" ng-model="circleDuration" n>
+                  <option value="12" ng-selected="true">1</option>
+                  <option value="20">5</option>
+                  <option value="40">10</option>
+                </select>
+              </div>       
+            </div>
+             <div style="width: 30%;">
+              <div class="form-group" style="width: 100%;"> 
+                <label for="sel1">Radius</label>
+                <select class="form-control" ng-model="circleSide">
+                  <option value="10" ng-selected="true">10 m</option>
+                  <option value="20">20 m</option>
+                </select>
+              </div>        
+            </div>              
+            <a ng-click="selectmission('CIRCLE')"><input type="image" id="myimage" src="../images/circle-dashed.png" style="width: 150px;height: 150px;" /></a>
+
+          </div>
+            <div style="width: 100%;">
+              <button type="button" class="btn btn-info" ng-click="missionController.start()"> Start Mission </button>
+              <button type="button" class="btn btn-danger" ng-click="missionController.abort()"> Abort Mission </button>
+              <div style="margin-top: 10px; margin-left: 10px; width: 80%;" ng-show="missionInit == true"><md-progress-linear md-mode="determinate" value="{{progress}}"></md-progress-linear></div>
+              <div style="margin-top: 10px; margin-left: 10px; margin-left: 15px;" ng-show="missionInit == true"><b>State: </b>{{status}}</div>      
+              <div style="margin-top: 10px; margin-left: 10px; margin-left: 15px;" ng-show="missionInit == true"><b>Current Task: </b>{{currentTask}}</div>                    
+            </div>    
+         </div>
+         <hr/>
+         <div class="row" align="center">
+                <div class="col-lg-3">
+                    <div class="element-container" md-whiteframe="10" ng-init="value1=36" >
+                      <div><b>Motor 1: </b>{{value1}}</div>
+                      <md-num-picker ng-model="value1" 
+                                     min-value="36" 
+                                     max-value="650"
+                                     name="1"
+                                     somethings="someScope"
+                                     deltaValue="1"
+                                     ></md-num-picker>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                  <div class="element-container" md-whiteframe="10" ng-init="value2=36">
+                    <div><b>Motor 2:</b> {{value2}}</div>
+                    <md-num-picker ng-model="value2" 
+                                   min-value="36" 
+                                   max-value="650"
+                                   name="2"
+                                   deltaValue="1"
+                                   ></md-num-picker>
+                  </div>
+                </div>
+                <div class="col-lg-3">  
+                  <div class="element-container" md-whiteframe="10" ng-init="value3=36">
+                    <div><b>Motor 3:</b> {{value3}}</div>
+                    <md-num-picker ng-model="value3" 
+                                   min-value="36" 
+                                   max-value="650"
+                                   name="3"
+                                   deltaValue="1"
+                                   ></md-num-picker>
+                  </div>
+                 </div>
+                <div class="col-lg-3">  
+                <div class="element-container" md-whiteframe="10" ng-init="value4=36">
+                  <div><b>Motor 4:</b> {{value4}}</div>
+                  <md-num-picker ng-model="value4" 
+                                 min-value="36" 
+                                 max-value="650"
+                                 name="4"
+                                 deltaValue="1"
+                                ></md-num-picker>
+                </div>
+                </div>
+            </div>    
+        <hr/>   
+        <h4>Multi-motor controller</h4>
+        <hr/>   
+      <div class="row" align="center">
+          <div class="col-lg-3">  
+                <div class="element-container" md-whiteframe="10">
+                  <div><b>Motor 1-3:</b> {{value1}}</div>
+                  <md-num-picker ng-model="value1" 
+                                 min-value="36" 
+                                 max-value="255"
+                                 name="1:3"
+                                 deltaValue="1"
+                                ></md-num-picker>
+                </div>   
+          </div>
+          <div class="col-lg-3">             
+                <div class="element-container" md-whiteframe="10">
+                  <div><b>Motor 2-4:</b> {{value2}}</div>
+                  <md-num-picker ng-model="value2" 
+                                 min-value="36" 
+                                 max-value="255"
+                                 name="2:4"
+                                 deltaValue="1"
+                                ></md-num-picker>
+                </div>                           
+        </div>
+      </div>
+

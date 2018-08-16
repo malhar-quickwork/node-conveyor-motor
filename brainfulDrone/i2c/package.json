@@ -1,0 +1,17 @@
+{
+  "name": "i2c_demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "adafruit-pca9685": "^0.1.4",
+    "i2c": "^0.2.3",
+    "i2c-bus": "^1.2.1",
+    "pca9685": "^4.0.3"
+  }
+}
