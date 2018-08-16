@@ -14,6 +14,9 @@ let self ={
             pwm12 = new PWM('GPIO12');
             pwm13 = new PWM('GPIO13');
             pwm17 = new PWM('GPIO17');
+            console.log(pwm12);
+            console.log(pwm13);
+            console.log(pwm17);
         });
         next();
     },
