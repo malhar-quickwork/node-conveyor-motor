@@ -185,23 +185,6 @@ app.controller('MotorControlCtrl',function($scope){
 
             $scope.curr = {x:0 ,y: 0,z : 0};
 
-            $scope.stabilityOn = function(){
- 				socket.emit('auto-stability');
-            }
-
-            $scope.stabilityOff = function(){
-				socket.emit('auto-stability-off');
-            }
-
-            $scope.missionController = missionCtrl;
-
-            missionCtrl.init();
-            mc = missionCtrl ;
-
-            $scope.selectmission = function(name){
-                var param = {side : 40, time : 20000};
-                $scope.missionController.select(name,param);
-            }
             
                
 });
