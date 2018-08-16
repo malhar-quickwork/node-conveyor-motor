@@ -141,32 +141,6 @@ app.directive("mdNumPicker", function(){
 app.controller('MotorControlCtrl',function($scope){
 
             $scope.deltaValue = 1;
-
-
-            var opts = {
-              angle: -0.2, // The span of the gauge arc
-              lineWidth: 0.2, // The line thickness
-              radiusScale: 1, // Relative radius
-              pointer: {
-                length: 0.6, // // Relative to gauge radius
-                strokeWidth: 0.035, // The thickness
-                color: '#000000' // Fill color
-              },
-              limitMax: false,     // If false, the max value of the gauge will be updated if value surpass max
-              limitMin: false,     // If true, the min value of the gauge will be fixed unless you set it manually
-              colorStart: '#d9534f',   // Colors
-              colorStop: '#5cb85c',    // just experiment with them
-              strokeColor: '#E0E0E0',  // to see which ones work best for you
-              generateGradient: true,
-              highDpiSupport: true     // High resolution support
-            };
-            var target = document.getElementById('foo'); // your canvas element
-            var gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
-            gauge.maxValue = 90; // set max gauge value
-            gauge.setMinValue(0);  // Prefer setter over gauge.minValue = 0
-            gauge.animationSpeed = 32; // set animation speed (32 is default value)
-
-
             $scope.globalValueApply = function(){
                 $scope.value1 = $scope.value2 = $scope.value3 = $scope.value4 = parseInt($scope.globalValue);
                 socket.emit('speed-motor', {payload:{motorNumber : 1, value : $scope.globalValue},message:'speed change'});
