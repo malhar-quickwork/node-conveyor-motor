@@ -3,7 +3,8 @@ var app = express();
 var server = require('http').createServer(app);  
 var io = require('socket.io')(server);
 var ip = require('ip');
-
+var Gpio = require('pigpio').Gpio,
+motor = new Gpio(13, {mode: Gpio.OUTPUT});
 
 let PORT = 9000 ,CAM_PORT = 9001;
 
@@ -14,6 +15,7 @@ let motor = config.isPi? require('./modules/PCA9685-i2cMotorInterface.js'):mocks
 let socketHandleV3 =  require('./modules/v3.js') ;
 
 let currentHandler = socketHandleV3 ;
+currentHandler.setReferences(io,motor);
 
 motor.init(()=>{
     config.camStreamSrc = 'http://'+ip.address()+':'+CAM_PORT+'/?action=stream';
