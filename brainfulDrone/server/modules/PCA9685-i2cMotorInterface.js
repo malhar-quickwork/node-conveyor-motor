@@ -29,9 +29,9 @@ let self ={
     },
     throttle:(selected,speed,next)=>{
 		if(speed < 130){
-		    console.log('Speed On GPIO' + self.motors[selected] + ' : ',speed);
-		    self.motorsArr[selected].write(speed);
-		    console.log('Speed On GPIO' + self.motors[selected] + ' : ',speed);
+		    console.log('Speed On GPIO' + self.motors[selected-1] + ' : ',speed);
+		    self.motorsArr[selected-1].write(speed);
+		    console.log('Speed On GPIO' + self.motors[selected-1] + ' : ',speed);
 	    }
     },
     multiThrottle:(selected,speeds,next)=>{
