@@ -12,6 +12,8 @@ let self ={
     settings :{ kickUpTick : 0 , kickDownTickMin : 40 , kickDownTickMax : 600 },
     wire : null,
     init : (next)=>{ 
+        led.digitalWrite(0);
+        led.digitalWrite(1);
         /* raspi.init(() => {
             pwm12 = new PWM('GPIO12');
             pwm13 = new PWM('GPIO13');
