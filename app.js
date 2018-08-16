@@ -24,5 +24,6 @@ function slower() {
 setTimeout(slower,5000);
 process.on('SIGINT', function() {
 	motorOut.digitalWrite(0);
+motorOut.terminate();
 	console.log('Closing');
 });
