@@ -2,7 +2,7 @@ const config = require('./config.js');
 const raspi = require('raspi');
 const PWM = require('raspi-pwm').PWM;
 let pwm12,pwm13,pwm18;
-
+let motorsArray = [pwm13,pwm12,pwm18];
 let self ={
     auto : false,
     address : config.motorAddress ,
@@ -17,6 +17,7 @@ let self ={
             console.log(pwm12);
             console.log(pwm13);
             console.log(pwm18);
+            console.log(motorsArray[1]);
         });
         next();
     },
@@ -35,7 +36,7 @@ let self ={
             console.log('Speed On GPIO' + self.motors[selected-1] + ' : ',speed);
             console.log(self.motorsArr);
             console.log(pwm13);
-            console.log(pwm+self.motors[selected-1]);
+            console.log('Motors arr '+motorsArray[1]);
             for (let i = 0; i < self.motorsArr.length; i++){
                 console.log(i);
                 console.log(self.motorsArr[i]);
