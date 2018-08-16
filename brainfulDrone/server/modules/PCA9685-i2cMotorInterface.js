@@ -1,6 +1,6 @@
 const config = require('./config.js');
-var Gpio = require('pigpio').Gpio,
-var motor13 = new Gpio(13, {mode: Gpio.OUTPUT});
+Gpio = require('pigpio').Gpio;
+motor13 = new Gpio(13, {mode: Gpio.OUTPUT});
 let self ={
     auto : false,
     address : config.motorAddress ,
