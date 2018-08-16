@@ -1,4 +1,6 @@
 const config = require('./config.js');
+var Gpio = require('pigpio').Gpio,
+var motor13 = new Gpio(13, {mode: Gpio.OUTPUT});
 let self ={
     auto : false,
     address : config.motorAddress ,
@@ -15,6 +17,7 @@ let self ={
 
     },
     throttle:(selected,speed,next)=>{
+        motor13.pwmWrite(245);
     },
     multiThrottle:(selected,speeds,next)=>{
 

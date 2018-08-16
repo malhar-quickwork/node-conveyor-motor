@@ -1,10 +1,10 @@
+let motor = null;
 let ir = require('./../../proximity_sensor/ir-prox2')
 let i=0;
 let maxThrottleAllowed = 580; 
 let config = require('./config');
 let io = null ;
-let Gpio = require('pigpio').Gpio,
-motor = new Gpio(13, {mode: Gpio.OUTPUT});
+
 let speeds = {max : 120 , off : 30 , min : 50};
 
 let auto_stability_times = { delay : 250 , out : 300 };

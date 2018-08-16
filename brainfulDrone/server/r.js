@@ -3,8 +3,7 @@ var app = express();
 var server = require('http').createServer(app);  
 var io = require('socket.io')(server);
 var ip = require('ip');
-var Gpio = require('pigpio').Gpio,
-motor = new Gpio(13, {mode: Gpio.OUTPUT});
+
 
 let PORT = 9000 ,CAM_PORT = 9001;
 
