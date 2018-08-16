@@ -1,6 +1,8 @@
 const config = require('./config.js');
 const raspi = require('raspi');
 const PWM = require('raspi-pwm').PWM;
+const Gpio = require('pigpio').Gpio;
+const led = new Gpio(13, {mode: Gpio.OUTPUT});
 let pwm12,pwm13,pwm17;
 
 let self ={
@@ -10,14 +12,14 @@ let self ={
     settings :{ kickUpTick : 0 , kickDownTickMin : 40 , kickDownTickMax : 600 },
     wire : null,
     init : (next)=>{ 
-        raspi.init(() => {
+        /* raspi.init(() => {
             pwm12 = new PWM('GPIO12');
             pwm13 = new PWM('GPIO13');
             pwm17 = new PWM('GPIO17');
             console.log(pwm12);
             console.log(pwm13);
             console.log(pwm17);
-        });
+        }); */
         next();
     },
     motorsArr : [pwm13,pwm12,pwm17],
@@ -38,6 +40,7 @@ let self ={
                 console.log(i);
                 console.log(self.motorsArr[i]);
             }
+            led.pwmWrite(speed);
 		    //self.motorsArr[selected-1].write(speed);
 		    console.log('Speed On GPIO' + self.motors[selected-1] + ' : ',speed);
 	    }
