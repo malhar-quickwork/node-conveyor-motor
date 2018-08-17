@@ -28,7 +28,6 @@ motor.init(()=>{
     app.use('/api',require('./routes/routes.js'))
     app.listen(CAM_PORT, () => {
         console.log('Listening on '+CAM_PORT);
-        let socketClient = io(ip.address+':'+CAM_PORT);
 
     });
 });
