@@ -3,6 +3,7 @@ var app = express();
 var server = require('http').createServer(app);  
 var io = require('socket.io')(server);
 var ip = require('ip');
+const ioClient = require('socket.io-client');
 let socketClient;
 
 let PORT = 9000 ,CAM_PORT = 9001;
@@ -27,7 +28,7 @@ motor.init(()=>{
     });
     app.listen(CAM_PORT, () => {
         console.log('Listening on '+CAM_PORT);
-        socketClient = io()/* connect(ip.address+':'+CAM_PORT) */;
+        socketClient = ioClient(ip.address+':'+CAM_PORT);
 
     });
    
