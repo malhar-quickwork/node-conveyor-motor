@@ -115,4 +115,32 @@ motor.init(()=>{
         }
         res.send(200,{'motor':motorName,'speed':speed});
     });
+    app.route('/api/motor/:motor/getspeed').get((req,res) => {
+        let motorName = req.params['motor'];
+        let responsePayload = [];
+        console.log('REQUEST '+motorName+' speed '+speed);
+        switch (motorName) {
+            case 'motor1':    
+            socketClient.emit('speed-motor', {payload:{motorNumber : 1, value : speed},message:'speed change'});
+                break;
+            case 'motor2':
+            socketClient.emit('speed-motor', {payload:{motorNumber : 2, value : speed},message:'speed change'});
+                break;
+            case 'motor3':
+            socketClient.emit('speed-motor', {payload:{motorNumber : 3, value :speed},message:'speed change'});
+                break;
+            case 'conveyor1':
+            socketClient.emit('speed-dual-motor', {payload:{m1 : 2, m2 : 3, value : speed},message:'speed change'});
+                break;
+            case 'conveyor2':
+            socketClient.emit('speed-motor', {payload:{motorNumber : 1, value : speed},message:'speed change'});
+                break;
+            case 'all':
+                socketClient.emit('speed-all-motor',  {payload:{ value : speed},message:'speed change all'});
+                break;
+            default:
+                break;
+        }
+        res.send(200,{'motor':motorName,'speed':speed});
+    });
 });

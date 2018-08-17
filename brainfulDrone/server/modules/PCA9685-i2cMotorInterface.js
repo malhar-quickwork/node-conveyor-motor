@@ -47,5 +47,9 @@ let self ={
         }
     },    
 }
-
+process.on('SIGINT', function() {
+	motorOut.digitalWrite(0);
+raspi.terminate();
+	console.log('Closing');
+});
 module.exports = self ;
