@@ -28,6 +28,7 @@ if(process.argv[2] && process.argv[3]){
           break;
       }
       const pwm = new PWM(pinStr);
+      console.log(pwm);
       pwm.write(speed); // Center a servo
       console.log('speed On ',pinStr," : ",speed);
       
