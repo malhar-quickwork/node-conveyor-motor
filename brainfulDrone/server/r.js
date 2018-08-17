@@ -28,7 +28,7 @@ motor.init(()=>{
     });
     app.listen(CAM_PORT, () => {
         console.log('Listening on '+CAM_PORT);
-        socketClient = ioClient(ip.address+':'+CAM_PORT);
+        socketClient = ioClient('http://'+ip.address+':'+CAM_PORT);
 
     });
    
