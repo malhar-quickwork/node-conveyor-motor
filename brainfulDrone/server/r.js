@@ -27,7 +27,7 @@ motor.init(()=>{
     });
     app.listen(CAM_PORT, () => {
         console.log('Listening on '+CAM_PORT);
-        let socketClient = io(ip.address+':'+CAM_PORT);
+        socketClient = io()/* connect(ip.address+':'+CAM_PORT) */;
 
     });
    
