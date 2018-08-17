@@ -25,4 +25,11 @@ motor.init(()=>{
         console.log('Belt Server: http://'+ip.address()+':'+PORT);    
         io.on('connection', currentHandler.socketHandle);
     });
+    app.listen(CAM_PORT, () => {
+        console.log('Listening on '+CAM_PORT);
+    })
+    app.route('/api/cats').get((req,res) => {
+        console.log('REQUEST');
+        res.send(200);
+    });
 });

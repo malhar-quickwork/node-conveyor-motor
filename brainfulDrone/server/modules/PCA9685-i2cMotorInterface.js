@@ -13,10 +13,10 @@ let self ={
         raspi.init(() => {
             pwm12 = new PWM('GPIO12');
             pwm13 = new PWM('GPIO13');
-            pwm17 = new PWM('GPIO17');
+            pwm18 = new PWM('GPIO18');
             self.motorsArr.push(pwm13);            
             self.motorsArr.push(pwm12);
-            self.motorsArr.push(pwm17);
+            self.motorsArr.push(pwm18);
             console.log(self.motorsArr[1]);
         });
         next();
