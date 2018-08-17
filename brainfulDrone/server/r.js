@@ -25,7 +25,6 @@ motor.init(()=>{
         console.log('Belt Server: http://'+ip.address()+':'+PORT);    
         io.on('connection', currentHandler.socketHandle);
     });
-    app.use('/api',require('./routes/routes.js'))
     app.listen(CAM_PORT, () => {
         console.log('Listening on '+CAM_PORT);
         let socketClient = io(ip.address+':'+CAM_PORT);
