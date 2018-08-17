@@ -3,7 +3,7 @@ var app = express();
 var server = require('http').createServer(app);  
 var io = require('socket.io')(server);
 var ip = require('ip');
-
+let socketClient;
 
 let PORT = 9000 ,CAM_PORT = 9001;
 
@@ -28,7 +28,13 @@ motor.init(()=>{
     app.use('/api',require('./routes/routes.js'))
     app.listen(CAM_PORT, () => {
         console.log('Listening on '+CAM_PORT);
+        let socketClient = io(ip.address+':'+CAM_PORT);
 
     });
+   
+    app.route('/api/cats').get((req,res) => {
+        console.log('REQUEST');
+        socketClient.emit('stop-motor');
+        res.send(200,req);
+    });
 });
-module.exports = app,express;
