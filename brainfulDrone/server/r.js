@@ -31,4 +31,4 @@ motor.init(()=>{
 
     });
 });
-module.exports = app;
+module.exports = app,express;
