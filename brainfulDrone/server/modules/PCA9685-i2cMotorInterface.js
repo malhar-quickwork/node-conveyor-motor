@@ -48,7 +48,9 @@ let self ={
     },    
 }
 process.on('SIGINT', function() {
-	motorOut.digitalWrite(0);
+	for(let i = 0 ; i < self.motorsArr.length; i++){
+        self.motorsArr[i].write(0);
+    }
 raspi.terminate();
 	console.log('Closing');
 });
