@@ -42,7 +42,6 @@ module.exports =  {
         client.hasGyroStream = false ;  
         i++;
         console.log('Clients connected '+i);
-
         let statusUpdate = (status)=>{
             client.emit('motor-status', status);
         }
@@ -80,6 +79,8 @@ module.exports =  {
         });
         
         client.on('speed-motor', function(data) {
+        console.log(client);
+        console.log(io.sockets);
             console.log("speed-motor ",data)
             if(data.payload && data.payload.motorNumber && data.payload.value  && !isNaN(data.payload.value)){
                 if(data.payload.value<0){
