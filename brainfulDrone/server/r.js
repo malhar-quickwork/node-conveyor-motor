@@ -89,7 +89,7 @@ motor.init(()=>{
     });
     app.route('/api/motor/:motor/start').get((req,res) => {
         let motorName = req.params['motor'];
-        let speed = 66;
+        let speed = 70;
         console.log('REQUEST '+motorName+' speed '+speed);
         switch (motorName) {
             case 'motor1':    
