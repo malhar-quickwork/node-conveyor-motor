@@ -2,8 +2,16 @@ const config = require('./config.js');
 /* const raspi = require('raspi');
 const pwm = require('raspi-pwm'); */
 //const pwm = require('raspi-soft-pwm');
-const Gpio = require('pigpio').Gpio;
-const led = new Gpio(17, {mode: Gpio.OUTPUT});
+const pigpio = require('pigpio');
+const Gpio = pigpio.Gpio;
+pigpio.initialize();
+process.on('SIGINT', function() {
+	for(let i = 0 ; i < self.motorsArr.length; i++){
+        self.motorsArr[i].digitalWrite(0);
+    }
+    pigpio.terminate();
+	console.log('Closing');
+});
 let pwm12,pwm13,pwm18;
 let self ={
     auto : false,
@@ -50,11 +58,5 @@ let self ={
         }
     },    
 }
-process.on('SIGINT', function() {
-	for(let i = 0 ; i < self.motorsArr.length; i++){
-        self.motorsArr[i].digitalWrite(0);
-    }
-Gpio.terminate();
-	console.log('Closing');
-});
+
 module.exports = self ;
