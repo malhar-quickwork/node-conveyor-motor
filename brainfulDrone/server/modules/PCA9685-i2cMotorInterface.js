@@ -1,19 +1,19 @@
 const config = require('./config.js');
-const raspi = require('raspi');
-const pwm = require('raspi-pwm');
+/* const raspi = require('raspi');
+const pwm = require('raspi-pwm'); */
 //const pwm = require('raspi-soft-pwm');
 const pigpio = require('pigpio');
 const Gpio = pigpio.Gpio;
 process.on('SIGINT', function() {
 	for(let i = 0 ; i < self.motorsArr.length; i++){
-        self.motorsArr[i].digitalWrite(0);
+        self.motorsArr[i].pwmWrite(0);
     }
     pigpio.terminate();
 	console.log('Closing');
 });
 process.on('SIGTERM', function() {
 	for(let i = 0 ; i < self.motorsArr.length; i++){
-        self.motorsArr[i].digitalWrite(0);
+        self.motorsArr[i].pwmWrite(0);
     }
     pigpio.terminate();
 	console.log('Closing');
@@ -27,22 +27,21 @@ let self ={
     settings :{ kickUpTick : 0 , kickDownTickMin : 40 , kickDownTickMax : 600 },
     wire : null,
     init : (next)=>{ 
-        pigpio.configureClock(1, pigpio.CLOCK_PWM);
+        pigpio.configureClock(2, pigpio.CLOCK_PWM);
         pigpio.initialize();
-        raspi.init(() => {
-            pwm12 =/*  new Gpio(12, {mode: Gpio.OUTPUT}); //  */new pwm.PWM('GPIO12');
-            pwm13 =/*  new Gpio(13, {mode: Gpio.OUTPUT}); // */ new pwm.PWM('GPIO13');
-            pwm18 =/*  new Gpio(18, {mode: Gpio.OUTPUT}); */ new pwm.PWM('GPIO18');        
+       /*  raspi.init(() => { */
+            pwm12 = new Gpio(12, {mode: Gpio.OUTPUT}); // new pwm.PWM('GPIO12');
+            pwm13 = new Gpio(13, {mode: Gpio.OUTPUT}); // new pwm.PWM('GPIO13');
+            pwm18 = new Gpio(18, {mode: Gpio.OUTPUT}); //new pwm.PWM('GPIO18');        
             self.motorsArr.push(pwm13);            
             self.motorsArr.push(pwm12);
             self.motorsArr.push(pwm18);
             for(let i = 0 ; i < self.motorsArr.length; i++){
-           /*  self.motorsArr[i].pwmFrequency(250);
-            self.motorsArr[i].pwmWrite(9); */
-            self.motorsArr[i].write(9);
+            self.motorsArr[i].pwmFrequency(250);
+            self.motorsArr[i].pwmWrite(9);
             }
             console.log(self.motorsArr[1]);
-        });
+       /*  }); */
         next();
     },
     testInit:(allOne,next)=>{
@@ -58,8 +57,7 @@ let self ={
 		if(speed < 255){
             console.log('Speed On GPIO' + self.motors[selected-1] + ' : ',speed);
             console.log(self.motorsArr[selected-1]);
-            //self.motorsArr[selected-1].pwmWrite(speed);
-            self.motorsArr[selected-1].write(speed);
+		    self.motorsArr[selected-1].pwmWrite(speed);
 		    console.log('Speed On GPIO' + self.motors[selected-1] + ' : ',speed);
 	    }
     },
