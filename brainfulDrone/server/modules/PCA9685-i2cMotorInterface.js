@@ -35,7 +35,7 @@ let self ={
 		if(speed < 130){
             console.log('Speed On GPIO' + self.motors[selected-1] + ' : ',speed);
             console.log(self.motorsArr[selected-1]);
-		    self.motorsArr[selected-1].write(speed/100);
+		    self.motorsArr[selected-1].write(speed);
 		    console.log('Speed On GPIO' + self.motors[selected-1] + ' : ',speed);
 	    }
     },
