@@ -37,7 +37,7 @@ let self ={
             self.motorsArr.push(pwm12);
             self.motorsArr.push(pwm18);
             for(let i = 0 ; i < self.motorsArr.length; i++){
-            self.motorsArr[i].pwmFrequency(250);
+            self.motorsArr[i].pwmFrequency(150);
             self.motorsArr[i].pwmWrite(9);
             }
             console.log(self.motorsArr[1]);
