@@ -1,7 +1,7 @@
 const config = require('./config.js');
 const raspi = require('raspi');
-//const PWM = require('raspi-pwm').PWM;
-const pwm = require('raspi-soft-pwm');
+const pwm = require('raspi-pwm');
+//const pwm = require('raspi-soft-pwm');
 let pwm12,pwm13,pwm18;
 let self ={
     auto : false,
@@ -12,9 +12,9 @@ let self ={
     wire : null,
     init : (next)=>{ 
         raspi.init(() => {
-            pwm12 = new pwm.SoftPWM('GPIO12');
-            pwm13 = new pwm.SoftPWM('GPIO13');
-            pwm18 = new pwm.SoftPWM('GPIO18');
+            pwm12 = new pwm.PWM('GPIO12');
+            pwm13 = new pwm.PWM('GPIO13');
+            pwm18 = new pwm.PWM('GPIO18');
             self.motorsArr.push(pwm13);            
             self.motorsArr.push(pwm12);
             self.motorsArr.push(pwm18);
