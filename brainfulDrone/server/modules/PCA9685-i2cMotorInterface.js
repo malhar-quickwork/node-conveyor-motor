@@ -20,7 +20,7 @@ let self ={
     settings :{ kickUpTick : 0 , kickDownTickMin : 40 , kickDownTickMax : 600 },
     wire : null,
     init : (next)=>{ 
-        pigpio.configureClock(1, pigpio.CLOCK_PCM);
+        pigpio.configureClock(1, pigpio.CLOCK_PWM);
         pigpio.initialize();
        /*  raspi.init(() => { */
             pwm12 = new Gpio(12, {mode: Gpio.OUTPUT}); // new pwm.PWM('GPIO12');
