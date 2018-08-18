@@ -4,7 +4,6 @@ const pwm = require('raspi-pwm'); */
 //const pwm = require('raspi-soft-pwm');
 const pigpio = require('pigpio');
 const Gpio = pigpio.Gpio;
-pigpio.initialize();
 process.on('SIGINT', function() {
 	for(let i = 0 ; i < self.motorsArr.length; i++){
         self.motorsArr[i].digitalWrite(0);
@@ -21,13 +20,19 @@ let self ={
     settings :{ kickUpTick : 0 , kickDownTickMin : 40 , kickDownTickMax : 600 },
     wire : null,
     init : (next)=>{ 
+        
+        pigpio.initialize();
        /*  raspi.init(() => { */
             pwm12 = new Gpio(12, {mode: Gpio.OUTPUT}); // new pwm.PWM('GPIO12');
             pwm13 = new Gpio(13, {mode: Gpio.OUTPUT}); // new pwm.PWM('GPIO13');
-            pwm18 = new Gpio(18, {mode: Gpio.OUTPUT}); //new pwm.PWM('GPIO18');
+            pwm18 = new Gpio(18, {mode: Gpio.OUTPUT}); //new pwm.PWM('GPIO18');        
             self.motorsArr.push(pwm13);            
             self.motorsArr.push(pwm12);
             self.motorsArr.push(pwm18);
+            for(let i = 0 ; i < self.motorsArr.length; i++){
+            self.motorsArr[i].pwmFrequency(50);
+            self.motorsArr[i].pwmWrite(9);
+            }
             console.log(self.motorsArr[1]);
        /*  }); */
         next();
