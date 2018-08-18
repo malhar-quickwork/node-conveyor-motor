@@ -13,7 +13,7 @@ let self ={
     settings :{ kickUpTick : 0 , kickDownTickMin : 40 , kickDownTickMax : 600 },
     wire : null,
     init : (next)=>{ 
-        raspi.init(() => {
+       /*  raspi.init(() => { */
             pwm12 = new Gpio(12, {mode: Gpio.OUTPUT}); // new pwm.PWM('GPIO12');
             pwm13 = new Gpio(13, {mode: Gpio.OUTPUT}); // new pwm.PWM('GPIO13');
             pwm18 = new Gpio(18, {mode: Gpio.OUTPUT}); //new pwm.PWM('GPIO18');
@@ -21,7 +21,7 @@ let self ={
             self.motorsArr.push(pwm12);
             self.motorsArr.push(pwm18);
             console.log(self.motorsArr[1]);
-        });
+       /*  }); */
         next();
     },
     testInit:(allOne,next)=>{
