@@ -27,7 +27,7 @@ let self ={
     settings :{ kickUpTick : 0 , kickDownTickMin : 40 , kickDownTickMax : 600 },
     wire : null,
     init : (next)=>{ 
-        pigpio.configureClock(3, pigpio.CLOCK_PWM);
+        pigpio.configureClock(5, pigpio.CLOCK_PWM);
         pigpio.initialize();
        /*  raspi.init(() => { */
             pwm12 = new Gpio(12, {mode: Gpio.OUTPUT}); // new pwm.PWM('GPIO12');
@@ -37,7 +37,7 @@ let self ={
             self.motorsArr.push(pwm12);
             self.motorsArr.push(pwm18);
             for(let i = 0 ; i < self.motorsArr.length; i++){
-            self.motorsArr[i].pwmFrequency(500);
+            self.motorsArr[i].pwmFrequency(100);
             self.motorsArr[i].pwmWrite(9);
             }
             console.log(self.motorsArr[1]);
