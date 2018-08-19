@@ -173,6 +173,7 @@ app.controller('MotorControlCtrl',function($scope){
                 socket.emit('speed-motor', {payload:{motorNumber : 4, value : $scope.value4},message:'speed change'});
             }            
             $scope.sendValue = (motorNumber,val)=>{
+                console.log('Speed madarcg ');
                 socket.emit('speed-motor', {payload:{motorNumber : motorNumber, value : val},message:'speed change'});
             }  
             $scope.sendDualMotorValue = (motorNumber1, motorNumber2,val)=>{
