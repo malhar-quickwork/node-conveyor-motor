@@ -197,7 +197,7 @@ app.controller('MotorControlCtrl',function($scope){
 
 //extra 
 
-let oldMainCtrl = function($scope){
+/* let oldMainCtrl = function($scope){
         $scope.state = {auto:false , init:false , started:false};
     $scope.autoDownMode = ()=>{$scope.state.auto=!$scope.state.auto};
     //var socket = io.connect(window.location.host);
@@ -234,5 +234,5 @@ let oldMainCtrl = function($scope){
         socket.emit('speed-motor', {payload:{motorNumber : motorNumber, value : val},message:'speed change'});
     }
 };
-
+ */
 
