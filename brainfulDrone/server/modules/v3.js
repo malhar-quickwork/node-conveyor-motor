@@ -161,7 +161,7 @@ module.exports =  {
                     default:
                     break;
                 } */
-                options.body = postData;
+                options.form = postData;
                 console.log('Ha BCCCCCC  '+JSON.stringify(postData));
                 request.post(options,(err,res,body) => { 
                     if (err) {
