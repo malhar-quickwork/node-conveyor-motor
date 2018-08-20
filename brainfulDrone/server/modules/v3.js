@@ -160,7 +160,7 @@ module.exports =  {
                     break;
                 } */
 
-                request.post(options, (error,res,body) => { 
+                request.post(options, (err,res,body) => { 
                     if (err) {
                         return console.error('upload failed:', err);
                     }
