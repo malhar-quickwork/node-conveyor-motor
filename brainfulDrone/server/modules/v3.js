@@ -165,7 +165,7 @@ module.exports =  {
                     if (err) {
                         return console.error('upload failed:', err);
                     }
-                    console.log('Request succ  Server responded with:'+ body);}).form(JSON.stringify(postData));
+                    console.log('Request succ  Server responded with:'+ body);}).form(postData);
             }
         });
 
