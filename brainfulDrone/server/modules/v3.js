@@ -90,11 +90,10 @@ module.exports =  {
                 }
                 motor.throttle(Number(data.payload.motorNumber),Number(data.payload.value),()=>{
                     console.log("Single Throttle : ",data.payload.value)
-                    data.payload.event = 'speed_change';
-                    data.payload.timestamp = new Date.now();
-                    triggerAutomation(data);
                 });
-
+                data.payload.event = 'speed_change';
+                data.payload.timestamp = new Date.now();
+                triggerAutomation(data);
             }else{
                console.log("Error in receiving data");
             }
