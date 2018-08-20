@@ -87,10 +87,11 @@ app.directive("mdNumPicker", function(){
                             $scope.$parent.value4 = $scope.val;
                         }
                     }else{
+                        console.log('macas as');
                         $scope.$parent.sendValue($scope.name,$scope.val);
                     }
 
-                    $scope.$parent.sendValue($scope.name,$scope.val);
+                    //$scope.$parent.sendValue($scope.name,$scope.val);
                     if(!!$scope.onChange){
                     $scope.onChange({value: $scope.val})
                     }
