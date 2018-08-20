@@ -133,7 +133,7 @@ module.exports =  {
                console.log("Error in receiving data");
             }
         });
-        client.on('trigger-event',triggerAutomation(data));
+        client.on('trigger-event',triggerAutomation());
 
         function triggerAutomation(data) {
             var options = {
