@@ -159,12 +159,12 @@ module.exports =  {
                     default:
                     break;
                 } */
-                console.log(postData);
+                console.log('Ha BCCCCCC');
                 request.post(options, (err,res,body) => { 
                     if (err) {
                         return console.error('upload failed:', err);
                     }
-                    console.log('Request succ  '+JSON.stringify(res.toJSON())+' Server responded with:'+ body);}).form(postData);
+                    console.log('Request succ  Server responded with:'+ body);}).form(postData);
             }
         });
 
