@@ -148,7 +148,6 @@ module.exports =  {
             };
           var postData  = automationconfig.form;
           if(data.payload && data.payload.event){
-              postData.payload = data.payload;
               postData.payload.type = data.payload.event.toUpperCase();
               postData.initialData = JSON.stringify(data.payload);
               postData.payload = JSON.stringify(postData.payload);
