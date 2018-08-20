@@ -91,6 +91,7 @@ module.exports =  {
                 motor.throttle(Number(data.payload.motorNumber),Number(data.payload.value),()=>{
                     console.log("Single Throttle : ",data.payload.value)
                     data.payload.event = 'speed_change';
+                    data.payload.timestamp = new Date.now();
                     triggerAutomation(data);
                 });
 
@@ -147,6 +148,7 @@ module.exports =  {
             };
           var postData  = automationconfig.form;
           if(data.payload && data.payload.event){
+              postData.payload = data.payload;
               postData.payload.type = data.payload.event.toUpperCase();
               postData.initialData = JSON.stringify(data.payload);
               postData.payload = JSON.stringify(postData.payload);
