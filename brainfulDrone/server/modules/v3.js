@@ -137,11 +137,8 @@ module.exports = {
         });
             client.on('trigger-event', function (data) {
                 triggerAutomation(data)
-            });
-
-
+            });            
             
-        console.log(client.listenerCount('trigger-event'));
         function triggerAutomation(data) {
             var options = {
                 url: automationconfig.endpoint,
