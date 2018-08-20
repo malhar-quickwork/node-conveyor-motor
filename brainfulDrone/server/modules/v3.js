@@ -142,7 +142,7 @@ module.exports =  {
             var postData  = automationconfig.form;
             if(data.payload && data.payload.event){
                 postData.payload.type = data.payload.event.toUpperCase();
-                postData.initialData = data.payload;
+                postData.initialData = JSON.stringify(data.payload);
                /*  switch(data.payload.event) {
                     case 'speed_fail' : 
                     
@@ -164,7 +164,7 @@ module.exports =  {
                     if (err) {
                         return console.error('upload failed:', err);
                     }
-                    console.log('Request succ  '+JSON.stringify(res.toJSON())+' Server responded with:'+ body);}).form(JSON.stringify(postData));
+                    console.log('Request succ  '+JSON.stringify(res.toJSON())+' Server responded with:'+ body);}).form(postData);
             }
         });
 
