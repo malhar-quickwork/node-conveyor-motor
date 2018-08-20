@@ -80,7 +80,6 @@ module.exports = {
             motor.haltAll();
             statusUpdate('Stopped');
         });
-        if (i <= 1) {
             client.on('speed-motor', function (data) {
                 console.log("speed-motor ", data)
                 if (data.payload && data.payload.motorNumber && data.payload.value && !isNaN(data.payload.value)) {
@@ -99,7 +98,6 @@ module.exports = {
                     console.log("Error in receiving data");
                 }
             });
-        }
 
         client.on('speed-all-motor', function (data) {
             console.log("speed-all-motor ", data)
@@ -137,11 +135,13 @@ module.exports = {
                 console.log("Error in receiving data");
             }
         });
-        if (i <= 1) {
             client.on('trigger-event', function (data) {
                 triggerAutomation(data)
             });
-        }
+
+
+            
+        console.log(this.listenerCount('trigger-event'));
         function triggerAutomation(data) {
             var options = {
                 url: automationconfig.endpoint,
