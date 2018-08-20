@@ -133,44 +133,45 @@ module.exports =  {
                console.log("Error in receiving data");
             }
         });
-        client.on('trigger-event',function(data) {
-              var options = {
-                url: automationconfig.endpoint,
-                headers: automationconfig.headers,
+        client.on('trigger-event',triggerAutomation(data));
 
-              };
-            var postData  = automationconfig.form;
-            if(data.payload && data.payload.event){
-                postData.payload.type = data.payload.event.toUpperCase();
-                postData.initialData = JSON.stringify(data.payload);
-                postData.payload = JSON.stringify(postData.payload);
-                postData.orgId = automationconfig.form.orgId;
-               /*  switch(data.payload.event) {
-                    case 'speed_fail' : 
-                    
-                    break;
-                    case 'speed_change':
-                    postData = data.payload;
-                    break;
-                    case 'conveyor_fail':
-                    postData = data.payload;
-                    break;
-                    case 'speed_overload':
-                    postData = data.payload;
-                    break;
-                    default:
-                    break;
-                } */
-                options.form = postData;
-                console.log('Ha BCCCCCC  '+JSON.stringify(postData));
-                request.post(options,(err,res,body) => { 
-                    if (err) {
-                        return console.error('upload failed:', err);
-                    }
-                    console.log('Request succ  Server responded with:'+ body);});
-            }
-        });
+        function triggerAutomation(data) {
+            var options = {
+              url: automationconfig.endpoint,
+              headers: automationconfig.headers,
 
+            };
+          var postData  = automationconfig.form;
+          if(data.payload && data.payload.event){
+              postData.payload.type = data.payload.event.toUpperCase();
+              postData.initialData = JSON.stringify(data.payload);
+              postData.payload = JSON.stringify(postData.payload);
+              postData.orgId = automationconfig.form.orgId;
+             /*  switch(data.payload.event) {
+                  case 'speed_fail' : 
+                  
+                  break;
+                  case 'speed_change':
+                  postData = data.payload;
+                  break;
+                  case 'conveyor_fail':
+                  postData = data.payload;
+                  break;
+                  case 'speed_overload':
+                  postData = data.payload;
+                  break;
+                  default:
+                  break;
+              } */
+              options.form = postData;
+              console.log('Ha BCCCCCC  '+JSON.stringify(postData));
+              request.post(options,(err,res,body) => { 
+                  if (err) {
+                      return console.error('upload failed:', err);
+                  }
+                  console.log('Request succ  Server responded with:'+ body);});
+          }
+      }
 
         client.on('disconnect', function() { i--; }); 
 
