@@ -151,6 +151,7 @@ module.exports =  {
               postData.payload.type = data.payload.event.toUpperCase();
               postData.initialData = JSON.stringify(data.payload);
               postData.orgId = automationconfig.form.orgId;
+              postData.payload = JSON.stringify(postData.payload);
              /*  switch(data.payload.event) {
                   case 'speed_fail' : 
                   
