@@ -4,6 +4,7 @@ let i=0;
 let maxThrottleAllowed = 580;
 var request = require('request');
 let config = require('./config');
+const querystring = require('querystring');  
 let automationconfig = require('./automationconfig');
 let io = null ;
 
@@ -148,8 +149,7 @@ module.exports =  {
           var postData  = automationconfig.form;
           if(data.payload && data.payload.event){
               postData.payload.type = data.payload.event.toUpperCase();
-              postData.initialData = JSON.stringify(data.payload);
-              postData.payload = JSON.stringify(postData.payload);
+              postData.initialData = data.payload;
               postData.orgId = automationconfig.form.orgId;
              /*  switch(data.payload.event) {
                   case 'speed_fail' : 
@@ -167,7 +167,7 @@ module.exports =  {
                   default:
                   break;
               } */
-              options.form = postData;
+              options.form = querystring.stringify(postData);
               console.log('Ha BCCCCCC  '+JSON.stringify(postData));
               request.post(options,(err,res,body) => { 
                   if (err) {
