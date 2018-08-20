@@ -79,7 +79,7 @@ app.directive("mdNumPicker", function(){
                     return;
                     };
                     $scope.val = $scope.val - parseInt($scope.$parent.deltaValue);
-                    if($scope.name.includes(":")){ 
+                    /* if($scope.name.includes(":")){ 
                         $scope.$parent.sendDualMotorValue($scope.name.split(":")[0],$scope.name.split(":")[1],$scope.val);
                         if($scope.name.split(":")[1] == "3"){
                             $scope.$parent.value3 = $scope.val;
@@ -88,8 +88,8 @@ app.directive("mdNumPicker", function(){
                         }
                     }else{
                         console.log('macas as');
-                        $scope.$parent.sendValue($scope.name,$scope.val);
-                    }
+                        //$scope.$parent.sendValue($scope.name,$scope.val);
+                    } */
 
                     //$scope.$parent.sendValue($scope.name,$scope.val);
                     if(!!$scope.onChange){
