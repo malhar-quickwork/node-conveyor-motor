@@ -141,7 +141,7 @@ module.exports = {
 
 
             
-        console.log(this.listenerCount('trigger-event'));
+        console.log(client.listenerCount('trigger-event'));
         function triggerAutomation(data) {
             var options = {
                 url: automationconfig.endpoint,
