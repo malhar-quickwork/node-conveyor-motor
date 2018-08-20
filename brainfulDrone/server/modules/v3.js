@@ -162,11 +162,11 @@ module.exports =  {
                     break;
                 } */
                 console.log('Ha BCCCCCC  '+JSON.stringify(postData));
-                request.post(options, (err,res,body) => { 
+                request.post(options, {form : postData},(err,res,body) => { 
                     if (err) {
                         return console.error('upload failed:', err);
                     }
-                    console.log('Request succ  Server responded with:'+ body);}).form(postData);
+                    console.log('Request succ  Server responded with:'+ body);});
             }
         });
 
