@@ -1,8 +1,10 @@
 let motor = null;
 let ir = require('./../../proximity_sensor/ir-prox2')
 let i=0;
-let maxThrottleAllowed = 580; 
+let maxThrottleAllowed = 580;
+var request = require('request');
 let config = require('./config');
+let automationconfig = require('./automationconfig');
 let io = null ;
 
 let speeds = {max : 120 , off : 30 , min : 50};
@@ -79,8 +81,6 @@ module.exports =  {
         });
         
         client.on('speed-motor', function(data) {
-        console.log(client);
-        console.log(io.sockets.client);
             console.log("speed-motor ",data)
             if(data.payload && data.payload.motorNumber && data.payload.value  && !isNaN(data.payload.value)){
                 if(data.payload.value<0){
@@ -91,6 +91,7 @@ module.exports =  {
                 motor.throttle(Number(data.payload.motorNumber),Number(data.payload.value),()=>{
                     console.log("Single Throttle : ",data.payload.value)
                 });
+
             }else{
                console.log("Error in receiving data");
             }
@@ -130,6 +131,40 @@ module.exports =  {
                 
             }else{
                console.log("Error in receiving data");
+            }
+        });
+        client.on('trigger-event',function(data) {
+              var options = {
+                url: automationconfig.endpoint,
+                headers: automationconfig.headers,
+
+              };
+            var postData  = automationconfig.form.initialData;
+            if(data.payload && data.payload.event){
+                postData.form.payload.type = data.payload.event.toUpperCase();
+                postData.form.initialData = data.payload;
+               /*  switch(data.payload.event) {
+                    case 'speed_fail' : 
+                    
+                    break;
+                    case 'speed_change':
+                    postData = data.payload;
+                    break;
+                    case 'conveyor_fail':
+                    postData = data.payload;
+                    break;
+                    case 'speed_overload':
+                    postData = data.payload;
+                    break;
+                    default:
+                    break;
+                } */
+
+                request.post(options, (error,res,body) => { 
+                    if (err) {
+                        return console.error('upload failed:', err);
+                    }
+                    console.log('Upload successful!  '+res+' Server responded with:', body);}).form(postData);
             }
         });
 

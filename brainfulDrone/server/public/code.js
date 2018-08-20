@@ -173,8 +173,13 @@ app.controller('MotorControlCtrl',function($scope){
                 socket.emit('speed-motor', {payload:{motorNumber : 4, value : $scope.value4},message:'speed change'});
             }            
             $scope.sendValue = (motorNumber,val)=>{
-                console.log('Speed madarcg ');
                 socket.emit('speed-motor', {payload:{motorNumber : motorNumber, value : val},message:'speed change'});
+                if(val <= 34) {
+                    socket.emit('trigger-event',{payload:{motorNumber : motorNumber, value : val, event:'speed_fail'}});
+                }
+                if(val > 45) {
+                    socket.emit('trigger-event',{payload:{motorNumber : motorNumber, value : val, event:'speed_overload'}});
+                }
             }  
             $scope.sendDualMotorValue = (motorNumber1, motorNumber2,val)=>{
                 socket.emit('speed-dual-motor', {payload:{m1 : motorNumber1, m2 : motorNumber2, value : val},message:'speed change'});
