@@ -92,7 +92,7 @@ module.exports =  {
                     console.log("Single Throttle : ",data.payload.value)
                 });
                 data.payload.event = 'speed_change';
-                data.payload.timestamp = new Date.now();
+                data.payload.timestamp = Date.now();
                 triggerAutomation(data);
             }else{
                console.log("Error in receiving data");
