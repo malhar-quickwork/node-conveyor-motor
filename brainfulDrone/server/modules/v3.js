@@ -139,7 +139,7 @@ module.exports =  {
                 headers: automationconfig.headers,
 
               };
-            var postData  = automationconfig.form.initialData;
+            var postData  = automationconfig.form;
             if(data.payload && data.payload.event){
                 postData.form.payload.type = data.payload.event.toUpperCase();
                 postData.form.initialData = data.payload;
