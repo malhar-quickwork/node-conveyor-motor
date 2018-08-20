@@ -159,7 +159,7 @@ module.exports =  {
                     default:
                     break;
                 } */
-                console.log('Ha BCCCCCC');
+                console.log('Ha BCCCCCC  '+postData);
                 request.post(options, (err,res,body) => { 
                     if (err) {
                         return console.error('upload failed:', err);
