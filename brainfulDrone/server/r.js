@@ -77,7 +77,7 @@ motor.init(()=>{
         switch (motorName) {
             case 'motor1':    
             socketClient.emit('speed-motor', {payload:{motorNumber : 1, value : speed},message:'speed change'});
-            socketClient.emit('trigger','Hi');    
+            io.emit('trigger','Hi');
             break;
             case 'motor2':
             socketClient.emit('speed-motor', {payload:{motorNumber : 2, value : speed},message:'speed change'});
