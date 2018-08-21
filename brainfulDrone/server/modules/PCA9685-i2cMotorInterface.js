@@ -51,16 +51,7 @@ ds18b20.sensors(function(err, ids) {
             self.motorsArr[i].pwmFrequency(100);
             self.motorsArr[i].pwmWrite(9);
             }
-            console.log(self.motorsArr[1]);
-            function myFunc(arg) {
-                ds18b20.temperature('28-0117c2b9e7ff', function(err, value) {
-                    console.log('Current temperature is', value);
-                  });
-                setTimeout(myFunc, 1500);
-              };
-            myFunc();
-              
-              
+            console.log(self.motorsArr[1]);             
        /*  }); */
         next();
     },

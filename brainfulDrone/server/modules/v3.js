@@ -3,6 +3,7 @@ let ir = require('./../../proximity_sensor/ir-prox2')
 let i = 0;
 let maxThrottleAllowed = 580;
 var request = require('request');
+var ds18b20 = require('ds18b20');
 let config = require('./config');
 const querystring = require('querystring');
 let automationconfig = require('./automationconfig');
@@ -56,6 +57,13 @@ module.exports = {
             console.log(data);
         });
 
+        function myFunc(arg) {
+            ds18b20.temperature('28-0117c2b9e7ff', function(err, value) {
+                console.log('Current temperature is', value);
+              });
+            setTimeout(myFunc, 5000);
+          };
+        myFunc();
 
         /****
          *  SENSORS CONTROLS
