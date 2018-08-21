@@ -148,24 +148,24 @@ app.controller('MotorControlCtrl', function ($scope) {
                 var motorNumber = data.payload.motorNumber;
                 switch (motorNumber) {
                     case 1:
-                        $scope.value1 = data.payload.value;
+                        $scope.value1 = parseInt(data.payload.value);
                         console.log('Ye dekh ',data.payload.value);
                         console.log('val ', $scope.value1);
                         break;
                     case 2:
-                        $scope.value2 = data.payload.value;
+                        $scope.value2 = parseInt(data.payload.value);
                         console.log('Ye dekh ',data.payload.value);
                         console.log('val ', $scope.value2);
                         break;
                     case 3:
-                        $scope.value3 = data.payload.value;
+                        $scope.value3 = parseInt(data.payload.value);
                         console.log('Ye dekh ',data.payload.value);
                         console.log('val ', $scope.value3);
                         break;
                 }
             }
             else {
-                $scope.value1 = $scope.value2 = $scope.value3 = $scope.value4 = data.payload.value;
+                $scope.value1 = $scope.value2 = $scope.value3 = $scope.value4 = parseInt(data.payload.value);
             }
         }
     });
