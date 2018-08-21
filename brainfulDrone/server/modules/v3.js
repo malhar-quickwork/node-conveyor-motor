@@ -30,6 +30,46 @@ let ir_dummy = {
     close: () => { clearInterval(ir.interval); }
 }
 
+function triggerAutomation (data) {
+    var options = {
+        url: automationconfig.endpoint,
+        headers: automationconfig.headers,
+
+    };
+    var postData = automationconfig.form;
+    if (data.payload && data.payload.event) {
+        var p1 = {};
+        p1.type = data.payload.event.toUpperCase();
+        postData.initialData = JSON.stringify(data.payload);
+        postData.orgId = automationconfig.form.orgId;
+        postData.payload = JSON.stringify(p1);
+        /*  switch(data.payload.event) {
+             case 'speed_fail' : 
+             
+             break;
+             case 'speed_change':
+             postData = data.payload;
+             break;
+             case 'conveyor_fail':
+             postData = data.payload;
+             break;
+             case 'speed_overload':
+             postData = data.payload;
+             break;
+             default:
+             break;
+         } */
+        options.form = querystring.stringify(postData);
+        console.log('Ha BCCCCCC  ' + JSON.stringify(postData));
+        request.post(options, (err, res, body) => {
+            if (err) {
+                return console.error('upload failed:', err);
+            }
+            console.log('Request succ  Server responded with:' + body);
+        });
+    }
+}
+
 module.exports = {
 
     setReferences: (socketIo, m) => {
@@ -142,44 +182,6 @@ module.exports = {
 
     },
 
-    triggerAutomation: function (data) {
-        var options = {
-            url: automationconfig.endpoint,
-            headers: automationconfig.headers,
-
-        };
-        var postData = automationconfig.form;
-        if (data.payload && data.payload.event) {
-            var p1 = {};
-            p1.type = data.payload.event.toUpperCase();
-            postData.initialData = JSON.stringify(data.payload);
-            postData.orgId = automationconfig.form.orgId;
-            postData.payload = JSON.stringify(p1);
-            /*  switch(data.payload.event) {
-                 case 'speed_fail' : 
-                 
-                 break;
-                 case 'speed_change':
-                 postData = data.payload;
-                 break;
-                 case 'conveyor_fail':
-                 postData = data.payload;
-                 break;
-                 case 'speed_overload':
-                 postData = data.payload;
-                 break;
-                 default:
-                 break;
-             } */
-            options.form = querystring.stringify(postData);
-            console.log('Ha BCCCCCC  ' + JSON.stringify(postData));
-            request.post(options, (err, res, body) => {
-                if (err) {
-                    return console.error('upload failed:', err);
-                }
-                console.log('Request succ  Server responded with:' + body);
-            });
-        }
-    }
+    triggerAutomation: triggerAutomation(data)
 
 };
