@@ -149,12 +149,18 @@ app.controller('MotorControlCtrl', function ($scope) {
                 switch (motorNumber) {
                     case 1:
                         $scope.value1 = data.payload.value;
+                        console.log('Ye dekh ',data.payload.value);
+                        console.log('val ', $scope.value1);
                         break;
                     case 2:
                         $scope.value2 = data.payload.value;
+                        console.log('Ye dekh ',data.payload.value);
+                        console.log('val ', $scope.value2);
                         break;
                     case 3:
                         $scope.value3 = data.payload.value;
+                        console.log('Ye dekh ',data.payload.value);
+                        console.log('val ', $scope.value3);
                         break;
                 }
             }
