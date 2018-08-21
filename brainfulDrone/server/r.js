@@ -3,6 +3,7 @@ var app = express();
 var server = require('http').createServer(app);  
 var io = require('socket.io')(server);
 var ip = require('ip');
+var ds18b20 = require('ds18b20');
 const ioClient = require('socket.io-client');
 let socketClient;
 
@@ -18,6 +19,16 @@ let currentHandler = socketHandleV3 ;
 currentHandler.setReferences(io,motor);
 
 motor.init(()=>{
+    function myFunc(arg) {
+        ds18b20.temperature('28-0117c2b9e7ff', function(err, value) {
+            console.log('Current temperature is', value);
+            var data = {payload:{motorNumber : 'temp', value : value, event:'speed_change'}};
+            data.payload.timestamp = Date.now();
+            socketHandleV3.triggerAutomation(data);
+          });
+        setTimeout(myFunc, 10000);
+      };
+    myFunc();
     config.camStreamSrc = 'http://'+ip.address()+':'+CAM_PORT+'/?action=stream';
         console.log('Belt at : '+config.camStreamSrc);
     

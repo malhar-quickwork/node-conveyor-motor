@@ -2,7 +2,6 @@ const config = require('./config.js');
 /* const raspi = require('raspi');
 const pwm = require('raspi-pwm'); */
 //const pwm = require('raspi-soft-pwm');
-var ds18b20 = require('ds18b20');
 const pigpio = require('pigpio');
 const Gpio = pigpio.Gpio;
 process.on('SIGINT', function() {
@@ -51,7 +50,7 @@ ds18b20.sensors(function(err, ids) {
             self.motorsArr[i].pwmFrequency(100);
             self.motorsArr[i].pwmWrite(9);
             }
-            console.log(self.motorsArr[1]);             
+            console.log(self.motorsArr[1]);
        /*  }); */
         next();
     },
@@ -69,10 +68,6 @@ ds18b20.sensors(function(err, ids) {
             console.log('Speed On GPIO' + self.motors[selected-1] + ' : ',speed);
             console.log(self.motorsArr[selected-1]);
 		    self.motorsArr[selected-1].pwmWrite(speed);
-            console.log('Speed On GPIO' + self.motors[selected-1] + ' : ',speed);
-            ds18b20.temperature('28-0117c2b9e7ff', function(err, value) {
-                console.log('Current temperature is', value);
-              });
 	    }
     },
     multiThrottle:(selected,speeds,next)=>{

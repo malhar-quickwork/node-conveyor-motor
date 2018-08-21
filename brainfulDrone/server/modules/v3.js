@@ -3,7 +3,6 @@ let ir = require('./../../proximity_sensor/ir-prox2')
 let i = 0;
 let maxThrottleAllowed = 580;
 var request = require('request');
-var ds18b20 = require('ds18b20');
 let config = require('./config');
 const querystring = require('querystring');
 let automationconfig = require('./automationconfig');
@@ -57,17 +56,6 @@ module.exports = {
             console.log(data);
         });
 
-        function myFunc(arg) {
-            ds18b20.temperature('28-0117c2b9e7ff', function(err, value) {
-                console.log('Current temperature is', value);
-                var data = {payload:{motorNumber : 'temp', value : value, event:'speed_change'}};
-                data.payload.timestamp = Date.now()+19800000;
-                triggerAutomation(data);
-              });
-            setTimeout(myFunc, 5000);
-          };
-        myFunc();
-
         /****
          *  SENSORS CONTROLS
          * ***/
@@ -103,7 +91,7 @@ module.exports = {
                         console.log("Single Throttle : ", data.payload.value)
                     });
                     data.payload.event = 'speed_change';
-                    data.payload.timestamp = Date.now()+19800000;
+                    data.payload.timestamp = Date.now();
                     triggerAutomation(data);
                 } else {
                     console.log("Error in receiving data");
@@ -149,49 +137,49 @@ module.exports = {
             client.on('trigger-event', function (data) {
                 triggerAutomation(data)
             });            
-            
-        function triggerAutomation(data) {
-            var options = {
-                url: automationconfig.endpoint,
-                headers: automationconfig.headers,
-
-            };
-            var postData = automationconfig.form;
-            if (data.payload && data.payload.event) {
-                var p1 = {};
-                p1.type = data.payload.event.toUpperCase();
-                postData.initialData = JSON.stringify(data.payload);
-                postData.orgId = automationconfig.form.orgId;
-                postData.payload = JSON.stringify(p1);
-                /*  switch(data.payload.event) {
-                     case 'speed_fail' : 
-                     
-                     break;
-                     case 'speed_change':
-                     postData = data.payload;
-                     break;
-                     case 'conveyor_fail':
-                     postData = data.payload;
-                     break;
-                     case 'speed_overload':
-                     postData = data.payload;
-                     break;
-                     default:
-                     break;
-                 } */
-                options.form = querystring.stringify(postData);
-                console.log('Ha BCCCCCC  ' + JSON.stringify(postData));
-                request.post(options, (err, res, body) => {
-                    if (err) {
-                        return console.error('upload failed:', err);
-                    }
-                    console.log('Request succ  Server responded with:' + body);
-                });
-            }
-        }
 
         client.on('disconnect', function () { i--; });
 
+    },
+
+    triggerAutomation: function (data) {
+        var options = {
+            url: automationconfig.endpoint,
+            headers: automationconfig.headers,
+
+        };
+        var postData = automationconfig.form;
+        if (data.payload && data.payload.event) {
+            var p1 = {};
+            p1.type = data.payload.event.toUpperCase();
+            postData.initialData = JSON.stringify(data.payload);
+            postData.orgId = automationconfig.form.orgId;
+            postData.payload = JSON.stringify(p1);
+            /*  switch(data.payload.event) {
+                 case 'speed_fail' : 
+                 
+                 break;
+                 case 'speed_change':
+                 postData = data.payload;
+                 break;
+                 case 'conveyor_fail':
+                 postData = data.payload;
+                 break;
+                 case 'speed_overload':
+                 postData = data.payload;
+                 break;
+                 default:
+                 break;
+             } */
+            options.form = querystring.stringify(postData);
+            console.log('Ha BCCCCCC  ' + JSON.stringify(postData));
+            request.post(options, (err, res, body) => {
+                if (err) {
+                    return console.error('upload failed:', err);
+                }
+                console.log('Request succ  Server responded with:' + body);
+            });
+        }
     }
 
 };
