@@ -33,7 +33,7 @@ let self ={
 ds18b20.sensors(function(err, ids) {
   // got sensor IDs ...
   if(err) {
-      console.log(err);
+      console.log('Cannot error ',err);
   }
   else {
   console.log('in here');
@@ -69,7 +69,10 @@ ds18b20.sensors(function(err, ids) {
             console.log('Speed On GPIO' + self.motors[selected-1] + ' : ',speed);
             console.log(self.motorsArr[selected-1]);
 		    self.motorsArr[selected-1].pwmWrite(speed);
-		    console.log('Speed On GPIO' + self.motors[selected-1] + ' : ',speed);
+            console.log('Speed On GPIO' + self.motors[selected-1] + ' : ',speed);
+            ds18b20.temperature('28-0117c2b9e7ff', function(err, value) {
+                console.log('Current temperature is', value);
+              });
 	    }
     },
     multiThrottle:(selected,speeds,next)=>{
