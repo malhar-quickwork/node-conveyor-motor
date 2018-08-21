@@ -29,16 +29,6 @@ let self ={
     init : (next)=>{ 
         pigpio.configureClock(2, pigpio.CLOCK_PWM);
         pigpio.initialize();
-ds18b20.sensors(function(err, ids) {
-  // got sensor IDs ...
-  if(err) {
-      console.log('Cannot error ',err);
-  }
-  else {
-  console.log('in here');
-  console.log(ids);
-  }
-});
        /*  raspi.init(() => { */
             pwm12 = new Gpio(12, {mode: Gpio.OUTPUT}); // new pwm.PWM('GPIO12');
             pwm13 = new Gpio(13, {mode: Gpio.OUTPUT}); // new pwm.PWM('GPIO13');
