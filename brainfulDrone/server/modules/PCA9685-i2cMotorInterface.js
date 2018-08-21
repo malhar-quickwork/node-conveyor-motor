@@ -65,7 +65,7 @@ let self ={
     },    
     allThrottle:(speed,next)=>{
         for(let i = 0 ; i < self.motorsArr.length; i++){
-            self.motorsArr[i].write(speed);
+            self.motorsArr[i].pwmWrite(speed);
         }
     },    
 }
