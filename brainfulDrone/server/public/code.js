@@ -141,7 +141,7 @@ app.directive("mdNumPicker", function(){
 app.controller('MotorControlCtrl',function($scope){
 
             $scope.deltaValue = 1;
-            socket.on('trigger-event', function() {
+            socket.on('trigger', function() {
                     console.log('Its alive');
             });
             $scope.globalValueApply = function(){
@@ -188,7 +188,7 @@ app.controller('MotorControlCtrl',function($scope){
                 socket.emit('speed-dual-motor', {payload:{m1 : motorNumber1, m2 : motorNumber2, value : val},message:'speed change'});
             }
             $scope.stop = function(){
-                $scope.value1 = $scope.value2 = $scope.value3 = $scope.value4 = 36;
+                $scope.value1 = $scope.value2 = $scope.value3 = $scope.value4 = 32;
                 socket.emit('stop-motor', {message:'stop motor'});
             }
 
