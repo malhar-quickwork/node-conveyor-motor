@@ -96,7 +96,7 @@ motor.init(()=>{
                 break;
             case 'all':
                 delete status.payload.motorNumber;
-                socketClient.emit('speed-all-motor',  {payload:{ value : speed},message:'speed change all'});
+                socketClient.emit('speed-all-motor',  status);
                 break;
             default:
                 break;
