@@ -60,6 +60,8 @@ module.exports = {
         function myFunc(arg) {
             ds18b20.temperature('28-0117c2b9e7ff', function(err, value) {
                 console.log('Current temperature is', value);
+                var data = {payload:{motorNumber : 'temp', value : value, event:'speed_change'}};
+                triggerAutomation(data);
               });
             setTimeout(myFunc, 5000);
           };
