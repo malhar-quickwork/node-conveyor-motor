@@ -162,11 +162,14 @@ app.controller('MotorControlCtrl', function ($scope) {
                         console.log('Ye dekh ',data.payload.value);
                         console.log('val ', $scope.value3);
                         break;
+                    default :
+                        break;
                 }
             }
             else {
                 $scope.value1 = $scope.value2 = $scope.value3 = $scope.value4 = parseInt(data.payload.value);
             }
+            $scope.$apply();
         }
     });
     $scope.globalValueApply = function () {
