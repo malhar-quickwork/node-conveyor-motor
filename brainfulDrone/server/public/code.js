@@ -141,8 +141,8 @@ app.directive("mdNumPicker", function(){
 app.controller('MotorControlCtrl',function($scope){
 
             $scope.deltaValue = 1;
-            socket.on('status-update', function() {
-                
+            socket.on('trigger-event', function() {
+                    console.log('Its alive');
             });
             $scope.globalValueApply = function(){
                 $scope.value1 = $scope.value2 = $scope.value3 = $scope.value4 = parseInt($scope.globalValue);
