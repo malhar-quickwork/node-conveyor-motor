@@ -61,11 +61,7 @@ module.exports = {
             ds18b20.temperature('28-0117c2b9e7ff', function(err, value) {
                 console.log('Current temperature is', value);
                 var data = {payload:{motorNumber : 'temp', value : value, event:'speed_change'}};
-                var d1 = new Date(); 
-                var d2 = new Date(d1);
-                d2.setHours ( d1.getHours() + 5 );
-                d2.setHours ( d1.getMinutes() + 30);
-                data.payload.timestamp = d2.getMilliseconds();
+                data.payload.timestamp = Date.now()+19800000;
                 triggerAutomation(data);
               });
             setTimeout(myFunc, 5000);
@@ -107,11 +103,7 @@ module.exports = {
                         console.log("Single Throttle : ", data.payload.value)
                     });
                     data.payload.event = 'speed_change';
-                    var d1 = new Date(); 
-                var d2 = new Date(d1);
-                d2.setHours ( d1.getHours() + 5 );
-                d2.setHours ( d1.getMinutes() + 30);
-                data.payload.timestamp = d2.getMilliseconds();
+                    data.payload.timestamp = Date.now()+19800000;
                     triggerAutomation(data);
                 } else {
                     console.log("Error in receiving data");
