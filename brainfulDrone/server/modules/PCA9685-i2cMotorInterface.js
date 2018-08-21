@@ -2,6 +2,7 @@ const config = require('./config.js');
 /* const raspi = require('raspi');
 const pwm = require('raspi-pwm'); */
 //const pwm = require('raspi-soft-pwm');
+var ds18b20 = require('ds18b20');
 const pigpio = require('pigpio');
 const Gpio = pigpio.Gpio;
 process.on('SIGINT', function() {
@@ -29,6 +30,16 @@ let self ={
     init : (next)=>{ 
         pigpio.configureClock(2, pigpio.CLOCK_PWM);
         pigpio.initialize();
+ds18b20.sensors(function(err, ids) {
+  // got sensor IDs ...
+  if(err) {
+      console.log(err);
+  }
+  else {
+  console.log('in here');
+  console.log(ids);
+  }
+});
        /*  raspi.init(() => { */
             pwm12 = new Gpio(12, {mode: Gpio.OUTPUT}); // new pwm.PWM('GPIO12');
             pwm13 = new Gpio(13, {mode: Gpio.OUTPUT}); // new pwm.PWM('GPIO13');
