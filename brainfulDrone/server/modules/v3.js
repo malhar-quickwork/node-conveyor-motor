@@ -93,7 +93,6 @@ module.exports = {
                     data.payload.event = 'speed_change';
                     data.payload.timestamp = Date.now();
                     module.exports.triggerAutomation(data);
-                    io.emit('trigger','Hi');
                 } else {
                     console.log("Error in receiving data");
                 }
