@@ -211,7 +211,7 @@ app.controller('MotorControlCtrl', function ($scope) {
         if(val <= 33){
             socket.emit('trigger-event', { payload: { motorNumber: motorNumber, value: val, event: 'stopped' } });
         }
-        if (val > 45) {
+        if (val > 40) {
             socket.emit('trigger-event', { payload: { motorNumber: motorNumber, value: val, event: 'speed_overload' } });
         }
     }

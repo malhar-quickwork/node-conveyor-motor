@@ -2,7 +2,7 @@ let motor = null;
 let ir = require('./../../proximity_sensor/ir-prox2')
 let i = 0;
 let maxThrottleAllowed = 580;
-var request = require('request');
+var request = require('request-promise');
 let config = require('./config');
 const querystring = require('querystring');
 let automationconfig = require('./automationconfig');
@@ -173,12 +173,13 @@ module.exports = {
              } */
             options.form = querystring.stringify(postData);
             console.log('Ha BCCCCCC  ' + JSON.stringify(postData));
-            request.post(options, (err, res, body) => {
+            request.post(options).then ((body) => {
+                console.log('Request succ  Server responded with:' + body);
+            }).catch((err) => {
                 if (err) {
                     return console.error('upload failed:', err);
                 }
-                console.log('Request succ  Server responded with:' + body);
-            });
+                });
         }
     }
 
