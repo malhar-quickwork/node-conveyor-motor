@@ -221,6 +221,7 @@ app.controller('MotorControlCtrl', function ($scope) {
     $scope.stop = function () {
         $scope.value1 = $scope.value2 = $scope.value3 = $scope.value4 = 32;
         socket.emit('stop-motor', { message: 'stop motor' });
+        socket.emit('trigger-event', { payload: { motorNumber: motorNumber, value: 32, event: 'stopped' } });
     }
 
     $scope.curr = { x: 0, y: 0, z: 0 };
