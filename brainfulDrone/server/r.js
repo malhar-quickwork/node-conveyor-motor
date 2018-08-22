@@ -20,11 +20,13 @@ currentHandler.setReferences(io,motor);
 
 motor.init(()=>{
     function myFunc(arg) {
+        // POLLING FOR TEMPERATURE HERE PANKAJ
         ds18b20.temperature('28-0117c2b9e7ff', function(err, value) {
             console.log('Current temperature is', value);
             var data = {payload:{motorNumber : 'temp', value : value, event:'temp_change'}};
             data.payload.timestamp = Date.now();
             socketHandleV3.triggerAutomation(data);
+            // SENDING TO CLIENT SIDE IN CODE.JS
             io.emit('temp-update',value);
           });
         setTimeout(myFunc, 10000);
@@ -35,7 +37,8 @@ motor.init(()=>{
     
     app.use(express.static(__dirname + '/public'));  
     server.listen(PORT,()=>{
-        console.log('Belt Server: http://'+ip.address()+':'+PORT);    
+        console.log('Belt Server: http://'+ip.address()+':'+PORT);   
+        console.err('OPEN PORT 9001 on ngrok in downloads folder,change endpoint in 3 automations, start,stop and increase speed');
         io.on('connection', currentHandler.socketHandle);
     });
     app.listen(CAM_PORT, () => {
@@ -75,6 +78,7 @@ motor.init(()=>{
             default:
                 break;
         }
+        // UPDATE CLIENT SPEED
         io.emit('update-scope',status);
         res.send(200,{'motor':motorName,'speed':0});
     });
@@ -109,6 +113,7 @@ motor.init(()=>{
             default:
                 break;
         }
+        // UPDATE CLIENT SPEED
         io.emit('update-scope',status);
         res.send(200,{'motor':motorName,'speed':speed});
     });
@@ -143,6 +148,7 @@ motor.init(()=>{
             default:
                 break;
         }
+        // UPDATE CLIENT SPEED
         io.emit('update-scope',status);
         res.send(200,{'motor':motorName,'speed':speed});
     });

@@ -139,8 +139,8 @@ app.directive("mdNumPicker", function () {
 })
 
 app.controller('MotorControlCtrl', function ($scope) {
-    socket.on('update-scope', function (value) {
-        
+    socket.on('temp-update', function (value) {
+        // TODO UPDATE TEMPERATURE ON UI PANKAJ
     });
 
     $scope.deltaValue = 1;
@@ -211,7 +211,7 @@ app.controller('MotorControlCtrl', function ($scope) {
         if (val == 34) {
             socket.emit('trigger-event', { payload: { motorNumber: motorNumber, value: val, event: 'speed_fail' } });
         }
-        if(val <= 33){
+        if(val == 33  || val == 32) {
             socket.emit('trigger-event', { payload: { motorNumber: motorNumber, value: val, event: 'stopped' } });
         }
         if (val > 40) {
