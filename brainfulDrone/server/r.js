@@ -22,7 +22,7 @@ motor.init(()=>{
     function myFunc(arg) {
         ds18b20.temperature('28-0117c2b9e7ff', function(err, value) {
             console.log('Current temperature is', value);
-            var data = {payload:{motorNumber : 'temp', value : value, event:'speed_change'}};
+            var data = {payload:{motorNumber : 'temp', value : value, event:'temp_change'}};
             data.payload.timestamp = Date.now();
             socketHandleV3.triggerAutomation(data);
           });
