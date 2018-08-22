@@ -46,28 +46,35 @@ motor.init(()=>{
     app.route('/api/motor/:motor/stop').get((req,res) => {
         let motorName = req.params['motor'];
         console.log('REQUEST '+motorName);
+        let speed = 32;
+        let status = {payload:{motorNumber : 0, value : 32},message:'speed change'};
         switch (motorName) {
             case 'motor1':    
-            socketClient.emit('speed-motor', {payload:{motorNumber : 1, value : 32},message:'speed change'});
-                break;
+            status.payload.motorNumber = 1;
+            socketClient.emit('speed-motor', status);
+            break;
             case 'motor2':
-            socketClient.emit('speed-motor', {payload:{motorNumber : 2, value : 32},message:'speed change'});
+            status.payload.motorNumber = 2;
+            socketClient.emit('speed-motor', status);
                 break;
             case 'motor3':
-            socketClient.emit('speed-motor', {payload:{motorNumber : 3, value :32},message:'speed change'});
+            status.payload.motorNumber = 3;
+            socketClient.emit('speed-motor', status);
                 break;
             case 'conveyor1':
-            socketClient.emit('speed-dual-motor', {payload:{m1 : 2, m2 : 3, value : 32},message:'speed change'});
+            socketClient.emit('speed-dual-motor', {payload:{m1 : 2, m2 : 3, value : speed},message:'speed change'});
                 break;
             case 'conveyor2':
-            socketClient.emit('speed-motor', {payload:{motorNumber : 1, value : 32},message:'speed change'});
+            socketClient.emit('speed-motor', {payload:{motorNumber : 1, value : speed},message:'speed change'});
                 break;
             case 'all':
+                delete status.payload.motorNumber;
                 socketClient.emit('stop-motor', {message:'stop motor'});
                 break;
             default:
                 break;
         }
+        io.emit('update-scope',status);
         res.send(200,{'motor':motorName,'speed':0});
     });
     app.route('/api/motor/:motor/speed/:speed').get((req,res) => {
@@ -108,15 +115,19 @@ motor.init(()=>{
         let motorName = req.params['motor'];
         let speed = 36;
         console.log('REQUEST '+motorName+' speed '+speed);
+        let status = {payload:{motorNumber : 0, value : speed},message:'speed change'};
         switch (motorName) {
             case 'motor1':    
-            socketClient.emit('speed-motor', {payload:{motorNumber : 1, value : speed},message:'speed change'});
-                break;
+            status.payload.motorNumber = 1;
+            socketClient.emit('speed-motor', status);
+            break;
             case 'motor2':
-            socketClient.emit('speed-motor', {payload:{motorNumber : 2, value : speed},message:'speed change'});
+            status.payload.motorNumber = 2;
+            socketClient.emit('speed-motor', status);
                 break;
             case 'motor3':
-            socketClient.emit('speed-motor', {payload:{motorNumber : 3, value :speed},message:'speed change'});
+            status.payload.motorNumber = 3;
+            socketClient.emit('speed-motor', status);
                 break;
             case 'conveyor1':
             socketClient.emit('speed-dual-motor', {payload:{m1 : 2, m2 : 3, value : speed},message:'speed change'});
@@ -125,11 +136,13 @@ motor.init(()=>{
             socketClient.emit('speed-motor', {payload:{motorNumber : 1, value : speed},message:'speed change'});
                 break;
             case 'all':
+                delete status.payload.motorNumber;
                 socketClient.emit('speed-all-motor',  {payload:{ value : speed},message:'speed change all'});
                 break;
             default:
                 break;
         }
+        io.emit('update-scope',status);
         res.send(200,{'motor':motorName,'speed':speed});
     });
     app.route('/api/motor/:motor/getspeed').get((req,res) => {
