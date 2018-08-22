@@ -25,6 +25,7 @@ motor.init(()=>{
             var data = {payload:{motorNumber : 'temp', value : value, event:'temp_change'}};
             data.payload.timestamp = Date.now();
             socketHandleV3.triggerAutomation(data);
+            io.emit('temp-update',value);
           });
         setTimeout(myFunc, 10000);
       };

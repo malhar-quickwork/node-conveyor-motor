@@ -1,6 +1,7 @@
 let app = angular.module('rutvik', ['ngRoute', 'ngMaterial']);
 var socket = io.connect(window.location.host);
 var mc = null;
+var Gauge =  window.Gauge;
 
 app.config(function ($routeProvider) {
     $routeProvider
@@ -139,6 +140,26 @@ app.directive("mdNumPicker", function () {
 })
 
 app.controller('MotorControlCtrl', function ($scope) {
+
+    var tempGauge = Gauge(document.getElementById("tempGauge"), {
+        max: 50,
+        value: 23,
+        // Custom dial colors (Optional)
+        color: function(value) {
+          if(value < 26) {
+            return "#5ee432"; // green
+          }else if(value < 30) {
+            return "#fffa50"; // yellow
+          }else if(value < 35) {
+            return "#f7aa38"; // orange
+          }else {
+            return "#ef4655"; // red
+          }
+        }
+    });
+    socket.on('temp-update', function (value) {
+        tempGauge.setValue(value);
+    });
 
     $scope.deltaValue = 1;
     socket.on('update-scope', function (data) {
