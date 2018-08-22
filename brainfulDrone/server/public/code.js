@@ -1,7 +1,7 @@
 let app = angular.module('rutvik', ['ngRoute', 'ngMaterial']);
 var socket = io.connect(window.location.host);
 var mc = null;
-var Gauge =  window.Gauge;
+var Gauge = require("svg-gauge");
 
 app.config(function ($routeProvider) {
     $routeProvider
@@ -157,8 +157,8 @@ app.controller('MotorControlCtrl', function ($scope) {
           }
         }
     });
-    socket.on('temp-update', function (value) {
-        tempGauge.setValue(value);
+    socket.on('update-scope', function (value) {
+        tempGauge.setValue(75);
     });
 
     $scope.deltaValue = 1;
