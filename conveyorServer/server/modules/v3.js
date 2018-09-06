@@ -172,9 +172,6 @@ module.exports = {
                  break;
              } */
             options.form = querystring.stringify(postData);
-            console.log('Ha BCCCCCC  ' + JSON.stringify(postData));
-            // PANKAJ
-            console.err('Ye LATENCY ka kuch karo');
             request.post(options).then ((body) => {
                 console.log('Request succ  Server responded with:' + body);
             }).catch((err) => {

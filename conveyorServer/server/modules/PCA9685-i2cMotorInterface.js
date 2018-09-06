@@ -40,7 +40,6 @@ let self ={
             self.motorsArr[i].pwmFrequency(100);
             self.motorsArr[i].pwmWrite(9);
             }
-            console.log(self.motorsArr[1]);
        /*  }); */
         next();
     },
@@ -55,9 +54,8 @@ let self ={
     },
     throttle:(selected,speed,next)=>{
 		if(speed < 255){
-            console.log('Speed On GPIO' + self.motors[selected-1] + ' : ',speed);
-            console.log(self.motorsArr[selected-1]);
-		    self.motorsArr[selected-1].pwmWrite(speed);
+            console.log('Speed On GPIO: ',speed);
+            self.motorsArr[selected-1].pwmWrite(speed);
 	    }
     },
     multiThrottle:(selected,speeds,next)=>{
